@@ -82,7 +82,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Sunday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
@@ -92,7 +92,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Monday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
@@ -102,7 +102,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Tuesday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
@@ -112,7 +112,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Wednesday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
@@ -122,7 +122,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Thursday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
@@ -142,7 +142,7 @@ while ($isLoggedOn)
 				if ($test) {Write-Host "It's Saturday."}
 				if ($scheduled)
 				{
-					#set_power_state
+					set_power_state
 				}
 				break
 			}
