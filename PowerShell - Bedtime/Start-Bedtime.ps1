@@ -62,93 +62,95 @@ if ($test) {write-host "bedtimeStart=$bedtimeStart, bedtimeEnd=$bedtimeEnd, sche
 if ($test) {$script:loopCounter = 0}
 
 # Main
-while ($isLoggedOn)
+while ($true)
 {
-	if ($test) {write-host "Start Loop[$loopCounter]"}
-	# Get the day of the week
-	$dayOfTheWeek = (get-date).DayOfWeek
-	$hourOfTheDay = (get-date).hour
-	if ($test) {write-host "Today:$dayOfTheWeek"}
-	if ($test) {write-host "Hour:$hourOfTheDay"}
-	
-	# If after 9 on weekdays go to sleep
-	if ($hourOfTheDay -ge $bedtimeStart -Or $hourOfTheDay -le $bedtimeEnd)
+	if ($isLoggedOn)
 	{
-		if ($test) {write-host "Time within range: Start Hour:$bedtimeStart; End Hour:$bedtimeEnd"}
-		switch($dayOfTheWeek)
+		if ($test) {write-host "Start Loop[$loopCounter]"}
+		# Get the day of the week
+		$dayOfTheWeek = (get-date).DayOfWeek
+		$hourOfTheDay = (get-date).hour
+		if ($test) {write-host "Today:$dayOfTheWeek"}
+		if ($test) {write-host "Hour:$hourOfTheDay"}
+		
+		# If after 9 on weekdays go to sleep
+		if ($hourOfTheDay -ge $bedtimeStart -Or $hourOfTheDay -le $bedtimeEnd)
 		{
-			"Sunday"
+			if ($test) {write-host "Time within range: Start Hour:$bedtimeStart; End Hour:$bedtimeEnd"}
+			switch($dayOfTheWeek)
 			{
-				if ($test) {Write-Host "It's Sunday."}
-				if ($scheduled)
+				"Sunday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Sunday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Monday"
-			{
-				if ($test) {Write-Host "It's Monday."}
-				if ($scheduled)
+				
+				"Monday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Monday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Tuesday"
-			{
-				if ($test) {Write-Host "It's Tuesday."}
-				if ($scheduled)
+				
+				"Tuesday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Tuesday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Wednesday"
-			{
-				if ($test) {Write-Host "It's Wednesday."}
-				if ($scheduled)
+				
+				"Wednesday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Wednesday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Thursday"
-			{
-				if ($test) {Write-Host "It's Thursday."}
-				if ($scheduled)
+				
+				"Thursday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Thursday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Friday"
-			{
-				if ($test) {Write-Host "It's Friday."}
-				if ($scheduled)
+				
+				"Friday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Friday."}
+					if ($scheduled)
+					{
+						set_power_state
+					}
+					break
 				}
-				break
-			}
-			
-			"Saturday"
-			{
-				if ($test) {Write-Host "It's Saturday."}
-				if ($scheduled)
+				
+				"Saturday"
 				{
-					set_power_state
+					if ($test) {Write-Host "It's Saturday."}
+					if ($scheduled)
+					{
+						#set_power_state
+					}
+					break
 				}
-				break
 			}
 		}
 	}
-	
 	# Sleep for a minute
 	if ($test) {Write-Host "Sleeping..."}
 	Start-Sleep -Seconds $sleepSeconds
