@@ -1,62 +1,66 @@
-
-
 function suspend-computer
 {
 	# Set power state
-	$powerState = [System.Windows.Forms.PowerState]::Suspend;
-	$force = $true;
-	$disableWake = $false;
-	[System.Windows.Forms.Application]::SetSuspendState($powerState, $force, $disableWake);
+	$powerState = [System.Windows.Forms.PowerState]::Suspend
+	$force = $true
+	$disableWake = $false
+	[System.Windows.Forms.Application]::SetSuspendState($powerState, $force, $disableWake)
 }
 
-# Get the day of the week
-$dayOfTheWeek = (get-date).DayOfWeek;
-$hourOfTheDay = (get-date).hour;
-
-# If after 9 on weekdays go to sleep
-if ($hourOfTheDay -ge 21)
+while ($true)
 {
-	write-host $dayOfTheWeek;
-	switch($dayOfTheWeek)
+	# Get the day of the week
+	$dayOfTheWeek = (get-date).DayOfWeek
+	$hourOfTheDay = (get-date).hour
+
+	# If after 9 on weekdays go to sleep
+	if ($hourOfTheDay -ge 21)
 	{
-		"Sunday"
+		write-host $dayOfTheWeek
+		switch($dayOfTheWeek)
 		{
-			suspend-computer;
-			break
-		}
-		
-		"Monday"
-		{
-			suspend-computer;
-			break
-		}
-		
-		"Tuesday"
-		{
-			suspend-computer;
-			break
-		}
-		
-		"Wednesday"
-		{
-			suspend-computer;
-			break
-		}
-		
-		"Thursday"
-		{
-			suspend-computer;
-			break
-		}
-		
-		"Friday"
-		{
-			break
-		}
-		
-		"Saturday"
-		{
-			break
+			"Sunday"
+			{
+				suspend-computer
+				break
+			}
+			
+			"Monday"
+			{
+				suspend-computer
+				break
+			}
+			
+			"Tuesday"
+			{
+				suspend-computer
+				break
+			}
+			
+			"Wednesday"
+			{
+				suspend-computer
+				break
+			}
+			
+			"Thursday"
+			{
+				suspend-computer
+				break
+			}
+			
+			"Friday"
+			{
+				break
+			}
+			
+			"Saturday"
+			{
+				break
+			}
 		}
 	}
+	
+	# Sleep for a minute
+	Start-Sleep -Seconds 60
 }
