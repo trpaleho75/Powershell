@@ -1,0 +1,1 @@
+powershell.exe -ExecutionPolicy Bypass C:\Users\HoltTr\Desktop\Watch-Print.ps1
