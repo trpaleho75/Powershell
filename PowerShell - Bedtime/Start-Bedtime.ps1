@@ -13,7 +13,7 @@ $config_URL = "http://"
 function config_local
 {
 	if ($test) {write-host "Using local configuration"}
-	$script:bedtimeStart = 11
+	$script:bedtimeStart = 21
 	$script:bedtimeEnd = 06
 	$script:scheduled = $true
 	$script:whitelist = $false
@@ -59,98 +59,100 @@ function set_power_state
 }
 
 if ($test) {write-host "bedtimeStart=$bedtimeStart, bedtimeEnd=$bedtimeEnd, scheduled=$scheduled, whitelist=$whitelist"}
-if ($test) {$script:loopCounter = 0}
+if ($test) {$script:loopCounter = 0; write-host "LoopCounter = $loopCounter"}
 
 # Main
 while ($true)
 {
-	if ($isLoggedOn)
+	if ($test) {write-host "Start Loop[$loopCounter]"}
+	# Get the day of the week
+	$dayOfTheWeek = (get-date).DayOfWeek
+	$hourOfTheDay = (get-date).hour
+	if ($test) {write-host "Today:$dayOfTheWeek"}
+	if ($test) {write-host "Hour:$hourOfTheDay"}
+	
+	# If after 9 on weekdays go to sleep
+	if ($hourOfTheDay -ge $bedtimeStart -Or $hourOfTheDay -lt $bedtimeEnd)
 	{
-		if ($test) {write-host "Start Loop[$loopCounter]"}
-		# Get the day of the week
-		$dayOfTheWeek = (get-date).DayOfWeek
-		$hourOfTheDay = (get-date).hour
-		if ($test) {write-host "Today:$dayOfTheWeek"}
-		if ($test) {write-host "Hour:$hourOfTheDay"}
-		
-		# If after 9 on weekdays go to sleep
-		if ($hourOfTheDay -ge $bedtimeStart -Or $hourOfTheDay -le $bedtimeEnd)
+		if ($test) {write-host "Time within range: Start Hour:$bedtimeStart; End Hour:$bedtimeEnd"}
+		switch($dayOfTheWeek)
 		{
-			if ($test) {write-host "Time within range: Start Hour:$bedtimeStart; End Hour:$bedtimeEnd"}
-			switch($dayOfTheWeek)
+			"Sunday"
 			{
-				"Sunday"
+				if ($test) {Write-Host "It's Sunday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Sunday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Monday"
+				break
+			}
+			
+			"Monday"
+			{
+				if ($test) {Write-Host "It's Monday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Monday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Tuesday"
+				break
+			}
+			
+			"Tuesday"
+			{
+				if ($test) {Write-Host "It's Tuesday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Tuesday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Wednesday"
+				break
+			}
+			
+			"Wednesday"
+			{
+				if ($test) {Write-Host "It's Wednesday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Wednesday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Thursday"
+				break
+			}
+			
+			"Thursday"
+			{
+				if ($test) {Write-Host "It's Thursday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Thursday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Friday"
+				break
+			}
+			
+			"Friday"
+			{
+				if ($test) {Write-Host "It's Friday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Friday."}
-					if ($scheduled)
-					{
-						set_power_state
-					}
-					break
+					set_power_state
 				}
-				
-				"Saturday"
+				break
+			}
+			
+			"Saturday"
+			{
+				if ($test) {Write-Host "It's Saturday."}
+				if ($scheduled)
 				{
-					if ($test) {Write-Host "It's Saturday."}
-					if ($scheduled)
-					{
-						#set_power_state
-					}
-					break
+					set_power_state
 				}
+				break
 			}
 		}
 	}
+	else
+	{
+		if ($test) {write-host "Time outside range: Start Hour:$bedtimeStart; End Hour:$bedtimeEnd"}
+	}
+		
 	# Sleep for a minute
 	if ($test) {Write-Host "Sleeping..."}
 	Start-Sleep -Seconds $sleepSeconds
