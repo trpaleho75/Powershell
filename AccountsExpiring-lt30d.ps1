@@ -1,0 +1,1 @@
+Get-ADUser -Filter * -Property * | Where-Object -FilterScript {$_.AccountExpirationDate -gt (Get-Date) -and $_.AccountExpirationDate -lt (Get-Date).AddMonths(1)} | Select-Object -Property DistinguishedName, Enabled, Name, AccountExpirationDate
